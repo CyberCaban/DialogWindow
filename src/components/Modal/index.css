@@ -1,22 +1,33 @@
 dialog {
   color: rgba(255, 255, 255, 0.793);
+
   width: 60%;
   border-radius: var(--dialog-border-radius);
   aspect-ratio: var(--dialog-aspect-ratio);
   overflow: hidden;
   top: var(--var-top);
   background-color: rgba(30, 26, 73, 0.877);
-  border: 3px var(--primary-color) outset;
+  border: 0.4rem var(--primary-color) outset;
   transition: 1s linear;
   flex-direction: column;
-  filter: blur(0.5px);
+  /* filter: blur(0.5px); */
   cursor: pointer;
   user-select: none;
 }
 
 dialog h2 {
   color: rgba(45, 187, 226, 0.927);
-  margin: 1rem 0 0 2rem;
+  margin: 1.3rem 0 0 2rem;
+  font-size: clamp(8px, 2vw, 40px);
+  letter-spacing: 0.3rem;
+}
+
+dialog p {
+  font-size: clamp(8px, 2vw, 40px);
+  letter-spacing: 0.07rem;
+  margin: auto;
+  max-width: 80%;
+  text-align: left;
 }
 
 dialog:focus {
@@ -43,7 +54,8 @@ dialog:focus {
   background-color: var(--shadow-color);
   transform: scaleX(1.04) scaleY(1.1) rotate(-6deg);
   transition: linear;
-  animation: shadowRotate infinite 4s;
+  animation: shadowRotate infinite 6s;
+  filter: blur(1px);
 }
 
 .nameplate {
@@ -52,7 +64,8 @@ dialog:focus {
   margin: 0 auto 0 0;
   top: var(--var-top);
   inset: 0px -85px 0 0;
-  width: 10%;
+  text-align: left;
+  width: auto;
   height: 10%;
   z-index: 2;
 }
@@ -68,6 +81,7 @@ dialog:focus {
 .arrow {
   background-color: var(--primary-color);
   clip-path: polygon(0 0, 100% 0, 50% 100%);
+  animation: arrowBobbing 2s infinite ease-in;
 }
 
 .arrow_outline {
@@ -81,7 +95,7 @@ dialog:focus {
     50% 100%
   );
   transform: scale(0.8) translateX(calc(-0.5rem * 0.8));
-  animation: arrowBobbing 2s infinite;
+  animation: arrowOutlineBobbing 2s infinite ease-in-out;
 }
 
 dialog > h1 {
@@ -117,20 +131,38 @@ dialog > h1 {
   }
 }
 
-@keyframes arrowBobbing {
+@keyframes arrowOutlineBobbing {
   0% {
     transform: scale(0.8) translateX(calc(-0.5rem * 0.8)) translateY(0);
   }
+  5% {
+    transform: scale(0.8) translateX(calc(-0.5rem * 0.8)) translateY(0.4rem);
+  }
   10% {
-    transform: scale(0.8) translateX(calc(-0.5rem * 0.8)) translateY(0.5rem);
+    transform: scale(0.8) translateX(calc(-0.5rem * 0.8)) translateY(0);
+  }
+  15% {
+    transform: scale(0.8) translateX(calc(-0.5rem * 0.8)) translateY(0.4rem);
   }
   20% {
     transform: scale(0.8) translateX(calc(-0.5rem * 0.8)) translateY(0);
   }
-  30% {
-    transform: scale(0.8) translateX(calc(-0.5rem * 0.8)) translateY(0.5rem);
+}
+
+@keyframes arrowBobbing {
+  0% {
+    transform: translateY(0);
   }
-  40% {
-    transform: scale(0.8) translateX(calc(-0.5rem * 0.8)) translateY(0);
+  5% {
+    transform: translateY(0.4rem);
+  }
+  10% {
+    transform: translateY(0);
+  }
+  15% {
+    transform: translateY(0.4rem);
+  }
+  20% {
+    transform: translateY(0);
   }
 }

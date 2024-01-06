@@ -1,13 +1,9 @@
 import { useEffect, useRef, useState, Dispatch, SetStateAction } from "react";
 import "./index.css";
-
-type dialogStages = {
-  speaker: string;
-  line: string;
-};
+import { dialogStages } from "../../dialog";
 
 type Props = {
-  children?: React.ReactElement | React.ReactElement[];
+  // children?: React.ReactElement | React.ReactElement[];
   open: boolean;
   style?: React.CSSProperties;
   onClick?(event: React.MouseEvent<HTMLDialogElement>): void;
@@ -16,15 +12,18 @@ type Props = {
 };
 
 export default function ModalDialog({
-  children,
+  // children,
   open,
   style,
   dialogStages,
-  setShowModal: closeModal,
+  setShowModal: showModal,
 }: Props) {
   const [dialogStage, setDialogStage] = useState(1);
-  const [currentLine, setCurrentLine] = useState(dialogStages[0].line);
-  const [currentSpeaker, setCurrentSpeaker] = useState(dialogStages[0].speaker);
+  const [currentLine, setCurrentLine] = useState(dialogStages[0]?.line);
+  const [currentSpeaker, setCurrentSpeaker] = useState(
+    dialogStages[0]?.speaker
+  );
+  const [events, setEvents] = useState(dialogStages[0]?.event?.eventType);
   const dialog = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -37,17 +36,23 @@ export default function ModalDialog({
     }
   }, [open]);
 
+  useEffect(() => {
+    console.log(JSON.stringify(events));
+  }, [events]);
+
   function dialogAdvance() {
     const dialogSections = dialogStages.length;
     if (dialogStage < dialogSections) {
       setDialogStage((prev) => prev + 1);
       setCurrentLine(dialogStages[dialogStage].line);
       setCurrentSpeaker(dialogStages[dialogStage].speaker);
+      setEvents(dialogStages[dialogStage].event?.eventType);
     } else {
       setCurrentLine(dialogStages[0].line);
       setCurrentSpeaker(dialogStages[0].speaker);
+      setEvents({ imageURL: "" });
       setDialogStage(1);
-      closeModal(false);
+      showModal(false);
     }
   }
 
@@ -59,16 +64,19 @@ export default function ModalDialog({
           //  style={{ top: "70%" }}
         />
       )}
+      {open && <img src={events?.imageURL} alt="" className="eventImage" />}
       <dialog ref={dialog} style={style} onClick={dialogAdvance}>
         <div className="nameplate">
           <h2 className="speaker" key={currentSpeaker}>
             {currentSpeaker}
           </h2>
         </div>
-        <h1 className="line" key={currentLine}>
+        <p className="line" key={currentLine}>
           {currentLine}
-        </h1>
-        {children}
+        </p>
+
+        {/* {children} */}
+
         <div className="arrow" />
         <div className="arrow_outline" />
       </dialog>
