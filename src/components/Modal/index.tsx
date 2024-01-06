@@ -24,21 +24,36 @@ export default function ModalDialog({
     dialogStages[0]?.speaker
   );
   const [events, setEvents] = useState(dialogStages[0]?.event?.eventType);
+  const [audio] = useState(new Audio(events?.soundURL || ""));
   const dialog = useRef<HTMLDialogElement>(null);
+
+  function resetDialog() {
+    setCurrentLine(dialogStages[0].line);
+    setCurrentSpeaker(dialogStages[0].speaker);
+    setDialogStage(1);
+    showModal(false);
+    audio.src = "";
+  }
 
   useEffect(() => {
     if (open) {
       dialog.current?.showModal();
       dialog.current!.style.display = "flex";
+
+      if (events?.soundURL) {
+        audio.src = events?.soundURL;
+        audio.play();
+      }
     } else {
       dialog.current?.close();
       dialog.current!.style.display = "none";
+      audio.src = "";
     }
   }, [open]);
 
   useEffect(() => {
-    console.log(JSON.stringify(events));
-  }, [events]);
+    console.log(JSON.stringify(audio));
+  }, [audio]);
 
   function dialogAdvance() {
     const dialogSections = dialogStages.length;
@@ -47,12 +62,10 @@ export default function ModalDialog({
       setCurrentLine(dialogStages[dialogStage].line);
       setCurrentSpeaker(dialogStages[dialogStage].speaker);
       setEvents(dialogStages[dialogStage].event?.eventType);
+      audio.src = dialogStages[dialogStage]?.event?.eventType.soundURL || "";
+      audio.play();
     } else {
-      setCurrentLine(dialogStages[0].line);
-      setCurrentSpeaker(dialogStages[0].speaker);
-      setEvents({ imageURL: "" });
-      setDialogStage(1);
-      showModal(false);
+      resetDialog();
     }
   }
 
@@ -74,7 +87,6 @@ export default function ModalDialog({
         <p className="line" key={currentLine}>
           {currentLine}
         </p>
-
         {/* {children} */}
 
         <div className="arrow" />

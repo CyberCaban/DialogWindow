@@ -46,16 +46,20 @@ export const dialogs: Dialogs = {
   "test 3": [
     {
       speaker: Names.QuestionMark,
-      line: "Join Covenant? (abandons former Covenant)",
-      event: { eventType: { imageURL: "./join covenant.jpg" } },
+      line: "Join Covenant? (abandons former Covenant) ",
+      event: {
+        eventType: {
+          imageURL: "./images/join covenant.jpg",
+          soundURL: "./sounds/A Moment's Peace.mp3",
+        },
+      },
     },
     {
       speaker: Names.QuestionMark,
       line: "You joined Covenant. (abandoned former Covenant)",
       event: {
         eventType: {
-          imageURL: "./joined covenant.jpg",
-          soundURL: "notanactualurl",
+          imageURL: "./images/joined covenant.jpg",
         },
       },
     },

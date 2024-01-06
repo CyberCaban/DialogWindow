@@ -40,7 +40,7 @@ dialog:focus {
 }
 
 ::backdrop {
-  backdrop-filter: blur(1px);
+  /* backdrop-filter: blur(1px); */
 }
 
 .shadow {
@@ -56,6 +56,14 @@ dialog:focus {
   transition: linear;
   animation: shadowRotate infinite 6s;
   filter: blur(1px);
+}
+
+.eventImage {
+  width: 30%;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .nameplate {
@@ -96,10 +104,6 @@ dialog:focus {
   );
   transform: scale(0.8) translateX(calc(-0.5rem * 0.8));
   animation: arrowOutlineBobbing 2s infinite ease-in-out;
-}
-
-dialog > h1 {
-  margin: auto;
 }
 
 @keyframes shadowRotate {
