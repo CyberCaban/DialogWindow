@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import ModalDialog from "./components/Modal/index";
 import { dialogStages, dialogs } from "./dialog";
