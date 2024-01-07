@@ -15,6 +15,10 @@ dialog {
   user-select: none;
 }
 
+dialog[open] {
+  display: flex;
+}
+
 dialog h2 {
   color: rgba(45, 187, 226, 0.927);
   margin: 1.3rem 0 0 2rem;
@@ -52,10 +56,10 @@ dialog:focus {
   aspect-ratio: var(--dialog-aspect-ratio);
   border-radius: var(--dialog-border-radius);
   background-color: var(--shadow-color);
-  transform: scaleX(1.04) scaleY(1.1) rotate(-6deg);
   transition: linear;
-  animation: shadowRotate infinite 6s;
   filter: blur(1px);
+  /* transform: scaleX(1.04) scaleY(1.1) rotate(-6deg); */
+  /* animation: shadowRotate infinite 6s; */
 }
 
 .eventImage {

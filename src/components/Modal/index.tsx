@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, Dispatch, SetStateAction } from "react";
 import "./index.css";
 import { dialogStages } from "../../dialog";
+import { motion } from "framer-motion";
 
 type Props = {
   // children?: React.ReactElement | React.ReactElement[];
@@ -38,7 +39,6 @@ export default function ModalDialog({
   useEffect(() => {
     if (open) {
       dialog.current?.showModal();
-      dialog.current!.style.display = "flex";
 
       if (events?.soundURL) {
         audio.src = events?.soundURL;
@@ -46,7 +46,6 @@ export default function ModalDialog({
       }
     } else {
       dialog.current?.close();
-      dialog.current!.style.display = "none";
       audio.src = "";
     }
   }, [open]);
@@ -72,13 +71,28 @@ export default function ModalDialog({
   return (
     <>
       {open && (
-        <div
+        <motion.div
           className="shadow"
-          //  style={{ top: "70%" }}
+          // initial={{ scaleX: 1.04, scaleY: 1.1, rotate: "-6deg" }}
+          animate={{
+            scaleX: [1.04, 1.06, 1.09, 1.05, 1.04],
+            scaleY: [1.1, 1.14, 1.16, 1.13, 1.1],
+            rotate: [354, 355, 356, 357, 354],
+            translateY: [0, 10, -10, 5, 0],
+          }}
+          transition={{
+            duration: 6,
+            ease: "easeInOut",
+            times: [0, 0.25, 0.5, 0.75, 1],
+            repeat: Infinity,
+            repeatDelay: 1,
+          }}
         />
       )}
-      {open && <img src={events?.imageURL} alt="" className="eventImage" />}
-      <dialog ref={dialog} style={style} onClick={dialogAdvance}>
+      {open && (
+        <motion.img src={events?.imageURL} alt="" className="eventImage" />
+      )}
+      <motion.dialog ref={dialog} style={style} onClick={dialogAdvance}>
         <div className="nameplate">
           <h2 className="speaker" key={currentSpeaker}>
             {currentSpeaker}
@@ -91,7 +105,7 @@ export default function ModalDialog({
 
         <div className="arrow" />
         <div className="arrow_outline" />
-      </dialog>
+      </motion.dialog>
     </>
   );
 }
