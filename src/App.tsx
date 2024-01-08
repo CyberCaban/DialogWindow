@@ -11,6 +11,7 @@ function App() {
   );
   const [pashalka, setPashalka] = useState(false);
   const appConstraint = useRef(null);
+  const [random, setRandom] = useState(Math.random());
   const [playing, setPlaying] = useState(false);
   const [audio] = useState(new Audio("./sounds/A Moment's Peace.mp3"));
 
@@ -67,7 +68,8 @@ function App() {
         dragProps={{
           drag: pashalka,
           dragConstraints: appConstraint,
-          whileDrag: { rotate: Math.random() * 360 },
+          whileDrag: { rotate: random * 360 },
+          onDragEnd: () => setRandom(Math.random()),
         }}
         disabled={pashalka}
         onClick={() => openDialog("test 3")}
