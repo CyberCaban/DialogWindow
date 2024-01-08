@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import ModalDialog from "./components/Modal/index";
 import { dialogStages, dialogs } from "./dialog";
@@ -10,6 +10,7 @@ function App() {
     dialogs["test 1"]
   );
   const [pashalka, setPashalka] = useState(false);
+  const appConstraint = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [audio] = useState(new Audio("./sounds/A Moment's Peace.mp3"));
 
@@ -21,7 +22,7 @@ function App() {
       audio.pause();
       audio.currentTime = 0.0;
     }
-  }, [playing]);
+  }, [playing, audio]);
 
   function openDialog(dialogId: string) {
     if (!dialogs[dialogId]) {
@@ -39,33 +40,63 @@ function App() {
   // }, [currentDialog]);
 
   return (
-    <>
+    <div id="app" ref={appConstraint}>
       <Button
-        dragProps={{ drag: pashalka }}
+        dragProps={{
+          drag: pashalka,
+          dragConstraints: appConstraint,
+          dragDirectionLock: true,
+        }}
+        disabled={pashalka}
         onClick={() => openDialog("test 1")}
       >
         show dialog 1
       </Button>
       <Button
-        dragProps={{ drag: pashalka }}
+        dragProps={{
+          drag: pashalka,
+          dragConstraints: appConstraint,
+          dragElastic: 1,
+        }}
+        disabled={pashalka}
         onClick={() => openDialog("test 2")}
       >
         show dialog 2
       </Button>
       <Button
-        dragProps={{ drag: pashalka }}
+        dragProps={{
+          drag: pashalka,
+          dragConstraints: appConstraint,
+          whileDrag: { rotate: Math.random() * 360 },
+        }}
+        disabled={pashalka}
         onClick={() => openDialog("test 3")}
       >
         show dialog 3
       </Button>
       <Button
-        dragProps={{ drag: pashalka }}
+        dragProps={{
+          drag: pashalka,
+          dragConstraints: appConstraint,
+          // dragSnapToOrigin: true,
+          dragTransition: {
+            bounceDamping: 0,
+            min: 0,
+            max: 10,
+            bounceStiffness: 2000,
+            timeConstant: 300,
+          },
+        }}
+        disabled={pashalka}
         onClick={() => setPlaying((prev) => !prev)}
       >
         audio test
       </Button>
       <Button
-        dragProps={{ drag: pashalka }}
+        dragProps={{
+          drag: pashalka,
+          dragConstraints: appConstraint,
+        }}
         onClick={() => setPashalka((prev) => !prev)}
       >
         button test
@@ -76,7 +107,7 @@ function App() {
         dialogStages={currentDialog}
         key={`${showModal}`}
       />
-    </>
+    </div>
   );
 }
 

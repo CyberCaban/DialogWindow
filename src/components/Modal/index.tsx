@@ -73,16 +73,23 @@ export default function ModalDialog({
       {open && (
         <motion.div
           className="shadow"
-          // initial={{ scaleX: 1.04, scaleY: 1.1, rotate: "-6deg" }}
+          // style={{ top: "var(--var-top)" }}
+          initial={{
+            scaleX: 1.04,
+            scaleY: 1.1,
+            rotate: 354,
+            top: "var(--var-top)",
+            filter: "blur(1px)",
+          }}
           animate={{
             scaleX: [1.04, 1.06, 1.09, 1.05, 1.04],
-            scaleY: [1.1, 1.14, 1.16, 1.13, 1.1],
+            scaleY: [1.1, 1.14, 1.15, 1.13, 1.1],
             rotate: [354, 355, 356, 357, 354],
             translateY: [0, 10, -10, 5, 0],
           }}
           transition={{
             duration: 6,
-            ease: "easeInOut",
+            ease: "linear",
             times: [0, 0.25, 0.5, 0.75, 1],
             repeat: Infinity,
             repeatDelay: 1,

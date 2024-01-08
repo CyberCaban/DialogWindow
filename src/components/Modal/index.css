@@ -51,15 +51,13 @@ dialog:focus {
   position: absolute;
   inset: 0px -85px 0 0;
   margin: 2rem auto 0 auto;
-  top: var(--var-top);
+  /* top: var(--var-top); */
   width: 60%;
   aspect-ratio: var(--dialog-aspect-ratio);
   border-radius: var(--dialog-border-radius);
   background-color: var(--shadow-color);
   transition: linear;
-  filter: blur(1px);
-  /* transform: scaleX(1.04) scaleY(1.1) rotate(-6deg); */
-  /* animation: shadowRotate infinite 6s; */
+  /* filter: blur(1px); */
 }
 
 .eventImage {
@@ -108,24 +106,6 @@ dialog:focus {
   );
   transform: scale(0.8) translateX(calc(-0.5rem * 0.8));
   animation: arrowOutlineBobbing 2s infinite ease-in-out;
-}
-
-@keyframes shadowRotate {
-  0% {
-    transform: scaleX(1.04) scaleY(1.1) rotate(-6deg) translateY(0);
-  }
-  25% {
-    transform: scaleX(1.06) scaleY(1.14) rotate(-5deg) translateY(10px);
-  }
-  50% {
-    transform: scaleX(1.09) scaleY(1.16) rotate(-4deg) translateY(-10px);
-  }
-  75% {
-    transform: scaleX(1.05) scaleY(1.13) rotate(-3deg) translateY(5px);
-  }
-  100% {
-    transform: scaleX(1.04) scaleY(1.1) rotate(-6deg) translateY(0);
-  }
 }
 
 @keyframes textAppear {
