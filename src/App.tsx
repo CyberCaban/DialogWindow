@@ -9,7 +9,7 @@ function App() {
   const [currentDialog, setCurrentDialog] = useState<dialogStages[]>(
     dialogs["test 1"]
   );
-  const [pashalka, setPashalka] = useState(false);
+  const [enableDrag, setEnableDrag] = useState(false);
   const appConstraint = useRef(null);
   const [random, setRandom] = useState(Math.random());
   const [playing, setPlaying] = useState(false);
@@ -44,41 +44,41 @@ function App() {
     <div id="app" ref={appConstraint}>
       <Button
         dragProps={{
-          drag: pashalka,
+          drag: enableDrag,
           dragConstraints: appConstraint,
-          dragDirectionLock: true,
+          dragSnapToOrigin: true,
         }}
-        disabled={pashalka}
+        disabled={enableDrag}
         onClick={() => openDialog("test 1")}
       >
         show dialog 1
       </Button>
       <Button
         dragProps={{
-          drag: pashalka,
+          drag: enableDrag,
           dragConstraints: appConstraint,
           dragElastic: 1,
         }}
-        disabled={pashalka}
+        disabled={enableDrag}
         onClick={() => openDialog("test 2")}
       >
         show dialog 2
       </Button>
       <Button
         dragProps={{
-          drag: pashalka,
+          drag: enableDrag,
           dragConstraints: appConstraint,
           whileDrag: { rotate: random * 360 },
           onDragEnd: () => setRandom(Math.random()),
         }}
-        disabled={pashalka}
+        disabled={enableDrag}
         onClick={() => openDialog("test 3")}
       >
         show dialog 3
       </Button>
       <Button
         dragProps={{
-          drag: pashalka,
+          drag: enableDrag,
           dragConstraints: appConstraint,
           // dragSnapToOrigin: true,
           dragTransition: {
@@ -89,17 +89,17 @@ function App() {
             timeConstant: 300,
           },
         }}
-        disabled={pashalka}
+        disabled={enableDrag}
         onClick={() => setPlaying((prev) => !prev)}
       >
         audio test
       </Button>
       <Button
         dragProps={{
-          drag: pashalka,
+          drag: enableDrag,
           dragConstraints: appConstraint,
         }}
-        onClick={() => setPashalka((prev) => !prev)}
+        onClick={() => setEnableDrag((prev) => !prev)}
       >
         button test
       </Button>
@@ -114,3 +114,4 @@ function App() {
 }
 
 export default App;
+

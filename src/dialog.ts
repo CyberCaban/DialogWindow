@@ -23,13 +23,17 @@ export enum Names {
   Yukari = "Yukari",
   UnknownMan = "Unknown man",
   QuestionMark = "???",
+  WiseMan = "Wise Man",
 }
 
 export const dialogs: Dialogs = {
   "test 1": [
-    { speaker: Names.Fuuka, line: "Tell 'em to bring out the whole ocean!" },
-    { speaker: Names.Junpei, line: "Let's go golfing!" },
-    { speaker: Names.Yukari, line: "Life is roblox" },
+    { speaker: Names.WiseMan, line: "One thing Minecraft tought me" },
+    {
+      speaker: Names.WiseMan,
+      line: "There are some things tou can get on hard mode",
+    },
+    { speaker: Names.WiseMan, line: "But you can't get on peaceful mode" },
   ],
 
   "test 2": [
@@ -65,3 +69,4 @@ export const dialogs: Dialogs = {
     },
   ],
 } as const;
+
